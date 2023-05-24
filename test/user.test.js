@@ -94,7 +94,7 @@ describe("User instance methods", function () {
       db.user
         .findOne()
         .then(function (user) {
-          if (user.validPassword("password")) {
+          if (user.validPassword("123123123")) {
             done();
           } else {
             done(user);

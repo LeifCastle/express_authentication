@@ -11,6 +11,16 @@ router.get("/login", (req, res) => {
   return res.render("auth/login");
 });
 
+router.get("/logout", (req, res) => {
+  req.logout(function (err, next) {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "Logging out... See you next time!");
+    res.redirect("/");
+  });
+});
+
 router.post(
   "/login",
   passport.authenticate("local", {
@@ -25,17 +35,17 @@ router.post("/signup", async (req, res) => {
   // we now have access to the user info (req.body);
   const { email, name, password } = req.body; // goes and us access to whatever key/value inside of the object
   try {
-    const [user, created] = await user.findOrCreate({
+    const [_user, created] = await user.findOrCreate({
       where: { email },
       defaults: { name, password },
     });
 
     if (created) {
       // if created, success and we will redirect back to / page
-      console.log(`----- ${user.name} was created -----`);
+      console.log(`----- ${_user.name} was created -----`);
       const successObject = {
         successRedirect: "/",
-        successFlash: `Welcome ${user.name}. Account was created and logging in...`,
+        successFlash: `Welcome ${_user.name}. Account was created and logging in...`,
       };
       //
       passport.authenticate("local", successObject)(req, res);
