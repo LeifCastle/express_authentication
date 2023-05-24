@@ -35,7 +35,7 @@ passport.serializeUser((user, cb) => {
 //Deserialize user
 passport.deserializeUser(async (id, cb) => {
   try {
-    const foundUser = await foundUser.findByPk(id);
+    const foundUser = await user.findByPk(id);
 
     if (foundUser) {
       cb(null, foundUser);
