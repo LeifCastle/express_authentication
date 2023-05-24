@@ -2,7 +2,9 @@
   "development": {
     "database": "express_auth_dev",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "username": "leif",
+    "password": 123
   },
   "test": {
     "database": "express_auth_test",
