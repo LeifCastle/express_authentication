@@ -11,14 +11,14 @@ const STRATEGY = new LocalStrategy(
   },
   async (email, password, cb) => {
     try {
-      const user = await user.findOne({
+      const foundUser = await user.findOne({
         where: { email },
       });
 
-      if (!user || !user.validPassword(password)) {
+      if (!foundUser || !foundUser.validPassword(password)) {
         cb(null, false); // if no user or invalid password, return false
       } else {
-        cb(null, user);
+        cb(null, foundUser);
       }
     } catch (err) {
       console.log("------- Error below -----------");
@@ -35,10 +35,10 @@ passport.serializeUser((user, cb) => {
 //Deserialize user
 passport.deserializeUser(async (id, cb) => {
   try {
-    const user = await user.findByPk(id);
+    const foundUser = await foundUser.findByPk(id);
 
-    if (user) {
-      cb(null, user);
+    if (foundUser) {
+      cb(null, foundUser);
     }
   } catch (err) {
     console.log("---- Yo... There is an error ----");
